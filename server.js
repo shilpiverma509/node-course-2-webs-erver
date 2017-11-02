@@ -3,6 +3,8 @@ const express = require('express');
 const hbs = require('hbs'); //handlebar
 const fs = require('fs');
 
+//app runs on heroku and locally
+const port = process.env.PORT || 3000;
 var app = express(); //creates an express aplication
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -93,6 +95,14 @@ app.get('/bad',(req,res)=>{
     });
 });
 
-app.listen(3000,()=>{
-    console.log('server is up on port 3000');
+//static server
+// app.listen(3000,()=>{
+//     console.log('server is up on port 3000');
+// });
+
+// for heroku we need to make it Dynamic because the port will
+// change as we deploy our app
+
+app.listen(port, () => {
+    console.log('server is up on port ${port}');
 });
